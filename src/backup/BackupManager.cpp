@@ -3,6 +3,7 @@
 #include "../../include/utils/Utils.h"
 #include <fstream>
 #include <sstream>
+#include <winsock2.h>
 #include <Windows.h>
 #include <SRRestorePtAPI.h>
 
