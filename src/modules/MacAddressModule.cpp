@@ -3,7 +3,7 @@
 #include "../../include/utils/Utils.h"
 
 // CRITICAL: Windows networking headers must be in this exact order
-#define WIN32_LEAN_AND_MEAN
+// WIN32_LEAN_AND_MEAN is now defined project-wide in vcxproj
 #include <winsock2.h>
 #include <ws2tcpip.h>
 #include <iphlpapi.h>

@@ -2,26 +2,9 @@
 #include "../../include/utils/Logger.h"
 #include <winsock2.h>
 #include <Windows.h>
-
-// ImGui headers (will be included when ImGui is added)
-// For now, stub implementation
-namespace ImGui {
-    void Begin(const char*, bool* = nullptr, int = 0) {}
-    void End() {}
-    void Text(const char*, ...) {}
-    void TextColored(int, const char*, ...) {}
-    bool Button(const char*, int = 0, int = 0) { return false; }
-    bool RadioButton(const char*, bool) { return false; }
-    bool Checkbox(const char*, bool*) { return false; }
-    bool Combo(const char*, int*, const char**, int) { return false; }
-    void ProgressBar(float, int = 0, int = 0, const char* = nullptr) {}
-    void Separator() {}
-    void SameLine() {}
-    void PushStyleColor(int, int) {}
-    void PopStyleColor(int = 1) {}
-    void SetNextWindowSize(int, int, int = 0) {}
-    void SetNextWindowPos(int, int, int = 0) {}
-}
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
 
 namespace HWIDRandomizer {
 
