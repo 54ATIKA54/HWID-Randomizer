@@ -1,16 +1,10 @@
 #pragma once
 
 #include "ModuleBase.h"
+#include "../Common.h"
 #include <string>
 
 namespace HWIDRandomizer {
-
-    enum class MotherboardProfile {
-        MSI_MAG_X670E_TOMAHAWK,
-        MSI_X670E_GENERIC,
-        ASUS_GENERIC,
-        GENERIC
-    };
 
     class SmbiosModule : public ModuleBase {
     public:

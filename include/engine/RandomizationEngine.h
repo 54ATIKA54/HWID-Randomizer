@@ -2,6 +2,7 @@
 
 #include "../modules/ModuleBase.h"
 #include "../backup/BackupManager.h"
+#include "../Common.h"
 #include <memory>
 #include <vector>
 #include <functional>
