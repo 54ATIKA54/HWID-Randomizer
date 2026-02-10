@@ -1,13 +1,11 @@
 #include "../../include/modules/MacAddressModule.h"
 #include "../../include/utils/Logger.h"
 #include "../../include/utils/Utils.h"
-#include <winsock2.h>
 #include <Windows.h>
 #include <iphlpapi.h>
 #include <algorithm>
 
 #pragma comment(lib, "iphlpapi.lib")
-#pragma comment(lib, "ws2_32.lib")
 
 namespace HWIDRandomizer {
 
@@ -26,7 +24,7 @@ namespace HWIDRandomizer {
         }
 
         int success = 0;
-        int total = (int)adapters.size();
+        int total = static_cast<int>(adapters.size());
 
         for (size_t i = 0; i < adapters.size(); i++) {
             float progress = static_cast<float>(i) / total;
