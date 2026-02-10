@@ -1,11 +1,17 @@
 #include "../../include/modules/MacAddressModule.h"
 #include "../../include/utils/Logger.h"
 #include "../../include/utils/Utils.h"
-#include <Windows.h>
+
+// CRITICAL: Windows networking headers must be in this exact order
+#define WIN32_LEAN_AND_MEAN
+#include <winsock2.h>
+#include <ws2tcpip.h>
 #include <iphlpapi.h>
+#include <Windows.h>
 #include <algorithm>
 
 #pragma comment(lib, "iphlpapi.lib")
+#pragma comment(lib, "ws2_32.lib")
 
 namespace HWIDRandomizer {
 
