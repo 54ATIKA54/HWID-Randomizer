@@ -10,7 +10,7 @@ namespace HWIDRandomizer {
     enum class LogLevel {
         INFO,
         WARNING,
-        ERROR,
+        ERROR_LOG,  // Changed from ERROR to avoid Windows.h conflict
         SUCCESS
     };
 
