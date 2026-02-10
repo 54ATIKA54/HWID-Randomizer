@@ -1,6 +1,7 @@
 #include "../include/gui/GuiManager.h"
 #include "../include/utils/Logger.h"
 #include "../include/utils/Utils.h"
+#include <winsock2.h>
 #include <Windows.h>
 #include <d3d11.h>
 #include <tchar.h>

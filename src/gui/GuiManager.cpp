@@ -1,5 +1,6 @@
 #include "../../include/gui/GuiManager.h"
 #include "../../include/utils/Logger.h"
+#include <winsock2.h>
 #include <Windows.h>
 
 // ImGui headers (will be included when ImGui is added)

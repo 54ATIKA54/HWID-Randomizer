@@ -1,6 +1,7 @@
 #include "../../include/modules/MachineGuidModule.h"
 #include "../../include/utils/Logger.h"
 #include "../../include/utils/Utils.h"
+#include <winsock2.h>
 #include <Windows.h>
 
 namespace HWIDRandomizer {

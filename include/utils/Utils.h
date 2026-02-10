@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <winsock2.h>
 #include <Windows.h>
 #include <vector>
 

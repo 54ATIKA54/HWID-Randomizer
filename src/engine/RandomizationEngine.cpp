@@ -2,6 +2,7 @@
 #include "../../include/modules/AllModules.h"
 #include "../../include/utils/Logger.h"
 #include "../../include/utils/Utils.h"
+#include <winsock2.h>
 #include <Windows.h>
 
 namespace HWIDRandomizer {
