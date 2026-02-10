@@ -62,7 +62,7 @@ namespace HWIDRandomizer {
     }
 
     void Logger::LogError(const std::string& message) {
-        Log(LogLevel::ERROR, message);
+        Log(LogLevel::ERROR_LOG, message);
     }
 
     void Logger::LogSuccess(const std::string& message) {
@@ -98,11 +98,11 @@ namespace HWIDRandomizer {
 
     std::string Logger::GetLevelString(LogLevel level) const {
         switch (level) {
-            case LogLevel::INFO:    return "INFO";
-            case LogLevel::WARNING: return "WARNING";
-            case LogLevel::ERROR:   return "ERROR";
-            case LogLevel::SUCCESS: return "SUCCESS";
-            default:                return "UNKNOWN";
+            case LogLevel::INFO:      return "INFO";
+            case LogLevel::WARNING:   return "WARNING";
+            case LogLevel::ERROR_LOG: return "ERROR";
+            case LogLevel::SUCCESS:   return "SUCCESS";
+            default:                  return "UNKNOWN";
         }
     }
 
