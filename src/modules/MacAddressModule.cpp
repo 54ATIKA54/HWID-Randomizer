@@ -1,11 +1,13 @@
 #include "../../include/modules/MacAddressModule.h"
 #include "../../include/utils/Logger.h"
 #include "../../include/utils/Utils.h"
+#include <winsock2.h>
 #include <Windows.h>
 #include <iphlpapi.h>
 #include <algorithm>
 
 #pragma comment(lib, "iphlpapi.lib")
+#pragma comment(lib, "ws2_32.lib")
 
 namespace HWIDRandomizer {
 
@@ -24,7 +26,7 @@ namespace HWIDRandomizer {
         }
 
         int success = 0;
-        int total = adapters.size();
+        int total = (int)adapters.size();
 
         for (size_t i = 0; i < adapters.size(); i++) {
             float progress = static_cast<float>(i) / total;
@@ -81,7 +83,7 @@ namespace HWIDRandomizer {
 
                     // Format MAC address
                     char macStr[32];
-                    sprintf_s(macStr, "%02X:%02X:%02X:%02X:%02X:%02X",
+                    sprintf_s(macStr, sizeof(macStr), "%02X:%02X:%02X:%02X:%02X:%02X",
                         pCurrAddresses->PhysicalAddress[0],
                         pCurrAddresses->PhysicalAddress[1],
                         pCurrAddresses->PhysicalAddress[2],
@@ -121,7 +123,11 @@ namespace HWIDRandomizer {
         // This is a simplified approach - production code would enumerate all subkeys
 
         for (int i = 0; i < 20; i++) {
-            std::string keyPath = adapter.registryPath + "\\" + std::to_string(i).insert(0, 4 - std::to_string(i).length(), '0');
+            std::string paddedNum = std::to_string(i);
+            while (paddedNum.length() < 4) {
+                paddedNum = "0" + paddedNum;
+            }
+            std::string keyPath = adapter.registryPath + "\\" + paddedNum;
 
             // Check if this key matches our adapter
             std::string driverDesc = Utils::ReadRegistryString(HKEY_LOCAL_MACHINE, keyPath, "DriverDesc");
