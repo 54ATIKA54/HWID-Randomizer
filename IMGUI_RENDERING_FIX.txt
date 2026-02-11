@@ -1,0 +1,57 @@
+================================================================================
+  HWID RANDOMIZER - IMGUI RENDERING FIX
+================================================================================
+
+ISSUE: Application launched but window closed immediately
+
+ROOT CAUSE: ImGui rendering code was commented out in main.cpp
+- ImGui frame start/end calls were commented
+- ImGui render call was commented
+- ImGui Win32 message handler was commented
+
+================================================================================
+  WHAT WAS FIXED
+================================================================================
+
+1. Uncommented ImGui frame calls in main loop:
+   - ImGui_ImplDX11_NewFrame()
+   - ImGui_ImplWin32_NewFrame()
+   - ImGui::NewFrame()
+
+2. Uncommented ImGui rendering:
+   - ImGui::Render()
+   - ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData())
+
+3. Added ImGui headers to main.cpp:
+   - #include "imgui.h"
+   - #include "imgui_impl_win32.h"
+   - #include "imgui_impl_dx11.h"
+
+4. Enabled ImGui Win32 message handler in WndProc:
+   - Added forward declaration for ImGui_ImplWin32_WndProcHandler
+   - Uncommented the handler call
+
+================================================================================
+  REBUILD INSTRUCTIONS
+================================================================================
+
+1. Close Visual Studio completely
+2. Reopen HWIDRandomizer.sln
+3. Select Release x64
+4. Build -> Rebuild Solution
+5. Run as administrator
+
+================================================================================
+  EXPECTED RESULT
+================================================================================
+
+The GUI window should now:
+✅ Stay open (not close immediately)
+✅ Display the ImGui interface
+✅ Show all controls and buttons
+✅ Respond to mouse/keyboard input
+✅ Display console log at bottom
+
+Window should be 1440x810 pixels with dark theme.
+
+================================================================================
