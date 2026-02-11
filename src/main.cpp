@@ -5,6 +5,9 @@
 #include <Windows.h>
 #include <d3d11.h>
 #include <tchar.h>
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
 
 #pragma comment(lib, "d3d11.lib")
 
@@ -94,19 +97,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         }
 
         // Start ImGui frame
-        // ImGui_ImplDX11_NewFrame();
-        // ImGui_ImplWin32_NewFrame();
-        // ImGui::NewFrame();
+        ImGui_ImplDX11_NewFrame();
+        ImGui_ImplWin32_NewFrame();
+        ImGui::NewFrame();
 
         // Render GUI
         guiManager.Render();
 
         // Render ImGui
-        // ImGui::Render();
+        ImGui::Render();
         const float clear_color[4] = { 0.17f, 0.17f, 0.17f, 1.00f }; // #2c2c2c
         g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, NULL);
         g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, clear_color);
-        // ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+        ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
         g_pSwapChain->Present(1, 0); // Present with vsync
     }
@@ -175,9 +178,12 @@ void CleanupRenderTarget() {
 }
 
 // Window procedure
+// Forward declare ImGui Win32 message handler
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
-    // if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
-    //     return true;
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+        return true;
 
     switch (msg) {
         case WM_SIZE:
