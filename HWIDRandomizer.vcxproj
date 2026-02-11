@@ -69,7 +69,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>d3d11.lib;dxgi.lib;setupapi.lib;wbemuuid.lib;iphlpapi.lib;bcrypt.lib;taskschd.lib;ntdll.lib;shlwapi.lib;ole32.lib;oleaut32.lib;advapi32.lib;shell32.lib;srclient.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ManifestFile>$(ProjectDir)app.manifest</ManifestFile>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>$(ProjectDir)app.manifest</AdditionalManifestFiles>
@@ -97,7 +97,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalDependencies>d3d11.lib;dxgi.lib;setupapi.lib;wbemuuid.lib;iphlpapi.lib;bcrypt.lib;taskschd.lib;ntdll.lib;shlwapi.lib;ole32.lib;oleaut32.lib;advapi32.lib;shell32.lib;srclient.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <ManifestFile>$(ProjectDir)app.manifest</ManifestFile>
+      <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
     <Manifest>
