@@ -26,27 +26,34 @@ namespace HWIDRandomizer {
 
     void GuiManager::Initialize(ID3D11Device* device, ID3D11DeviceContext* context, void* hwnd) {
         // Initialize ImGui context
-        // ImGui::CreateContext();
-        // ImGui_ImplWin32_Init(hwnd);
-        // ImGui_ImplDX11_Init(device, context);
+        IMGUI_CHECKVERSION();
+        ImGui::CreateContext();
+        ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+        ImGui_ImplWin32_Init(hwnd);
+        ImGui_ImplDX11_Init(device, context);
 
         // Setup dark theme colors
-        // ImGuiStyle& style = ImGui::GetStyle();
-        // ... color configuration matching planning.md ...
+        ImGuiStyle& style = ImGui::GetStyle();
+        style.Colors[ImGuiCol_WindowBg] = ImVec4(0.17f, 0.17f, 0.17f, 1.0f);
+        style.Colors[ImGuiCol_ChildBg] = ImVec4(0.10f, 0.10f, 0.10f, 1.0f);
+        style.Colors[ImGuiCol_Button] = ImVec4(0.0f, 0.83f, 1.0f, 0.4f);
+        style.Colors[ImGuiCol_ButtonHovered] = ImVec4(0.0f, 0.83f, 1.0f, 0.6f);
+        style.Colors[ImGuiCol_ButtonActive] = ImVec4(0.0f, 0.83f, 1.0f, 0.8f);
     }
 
     void GuiManager::Shutdown() {
-        // ImGui_ImplDX11_Shutdown();
-        // ImGui_ImplWin32_Shutdown();
-        // ImGui::DestroyContext();
+        ImGui_ImplDX11_Shutdown();
+        ImGui_ImplWin32_Shutdown();
+        ImGui::DestroyContext();
     }
 
     void GuiManager::Render() {
         // Main window
-        ImGui::SetNextWindowSize(1440, 810, 0);
-        ImGui::SetNextWindowPos(100, 100, 0);
+        ImGui::SetNextWindowSize(ImVec2(1440, 810), ImGuiCond_FirstUseEver);
+        ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_FirstUseEver);
 
-        ImGui::Begin("HWID Randomizer Research Tool", nullptr, 0);
+        ImGui::Begin("HWID Randomizer Research Tool", nullptr, ImGuiWindowFlags_NoResize);
 
         RenderHeader();
         RenderLeftPanel();
@@ -60,7 +67,7 @@ namespace HWIDRandomizer {
     void GuiManager::RenderHeader() {
         ImGui::Text("HWID Randomizer Research Tool");
         ImGui::SameLine();
-        ImGui::TextColored(0x00FF00, "[ADMINISTRATOR]");
+        ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "[ADMINISTRATOR]");
         ImGui::Separator();
     }
 
@@ -114,25 +121,25 @@ namespace HWIDRandomizer {
         ImGui::Separator();
 
         if (operationInProgress) {
-            ImGui::Button("PROCESSING...", 0, 0);
+            ImGui::Button("PROCESSING...", ImVec2(-1, 0));
         } else {
-            if (ImGui::Button("APPLY FULL RANDOMIZATION", 0, 0)) {
+            if (ImGui::Button("APPLY FULL RANDOMIZATION", ImVec2(-1, 0))) {
                 OnApplyButtonClicked();
             }
         }
 
-        ImGui::ProgressBar(currentProgress, 0, 0, nullptr);
+        ImGui::ProgressBar(currentProgress, ImVec2(-1, 0));
         ImGui::Text("Status: %s", currentStatus.c_str());
 
-        if (ImGui::Button("FULL REVERT", 0, 0)) {
+        if (ImGui::Button("FULL REVERT", ImVec2(0, 0))) {
             OnRevertButtonClicked();
         }
         ImGui::SameLine();
-        if (ImGui::Button("Export Log", 0, 0)) {
+        if (ImGui::Button("Export Log", ImVec2(0, 0))) {
             OnExportLogButtonClicked();
         }
         ImGui::SameLine();
-        if (ImGui::Button("Verify Changes", 0, 0)) {
+        if (ImGui::Button("Verify Changes", ImVec2(0, 0))) {
             OnVerifyButtonClicked();
         }
     }
@@ -141,14 +148,14 @@ namespace HWIDRandomizer {
         ImGui::Separator();
         ImGui::Text("Console Log:");
 
-        ImGui::PushStyleColor(0, 0x000000); // Black background
+        ImGui::PushStyleColor(ImGuiCol_ChildBg, ImVec4(0.0f, 0.0f, 0.0f, 1.0f)); // Black background
         // Render last 8 log lines from Logger
         auto& logger = Logger::GetInstance();
         const auto& messages = logger.GetGuiMessages();
 
-        int startIdx = (messages.size() > 8) ? messages.size() - 8 : 0;
+        int startIdx = (messages.size() > 8) ? (int)messages.size() - 8 : 0;
         for (size_t i = startIdx; i < messages.size(); i++) {
-            ImGui::TextColored(0x00FF00, "%s", messages[i].c_str());
+            ImGui::TextColored(ImVec4(0.0f, 1.0f, 0.0f, 1.0f), "%s", messages[i].c_str());
         }
 
         ImGui::PopStyleColor();
